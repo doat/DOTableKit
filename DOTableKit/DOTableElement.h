@@ -29,7 +29,7 @@
 @property (nonatomic, retain) id value;
 
 @property (nonatomic, copy) void (^action)();
-
+@property (nonatomic, assign) UITableViewCellStyle cellBaseStyle;
 @property (nonatomic, assign) BOOL enabled;
 
 - (Class)cellClass;

@@ -9,11 +9,12 @@
 #import "DOTableKit.h"
 
 @implementation DOTableElement
-@synthesize section = _section;
-@synthesize key = _key;
-@synthesize title = _title;
+@synthesize section;
+@synthesize key;
+@synthesize title;
 @synthesize value;
 @synthesize enabled;
+@synthesize cellBaseStyle;
 @synthesize action = actionBlock;
 
 - (Class)cellClass
@@ -31,22 +32,22 @@
     return self;
 }
 
-- (id)initWithKey:(NSString*)key
+- (id)initWithKey:(NSString*)aKey
 {
     self = [self init];
     if (self) 
     {
-        self.key = key;
+        self.key = aKey;
     }
     return self;
 }
 
-- (id)initWithTitle:(NSString*)title
+- (id)initWithTitle:(NSString*)aTitle
 {
     self = [self init];
     if (self) 
     {
-        self.title = title;
+        self.title = aTitle;
     }
     return self;
 }
@@ -57,7 +58,7 @@
     {
         value = aValue;
 
-        [_section tableElement: self valueDidChange: value];
+        [self.section tableElement: self valueDidChange: value];
     }
 }
 

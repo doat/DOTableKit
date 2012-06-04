@@ -149,7 +149,10 @@
     id rowAtIndex = [formSection.elements objectAtIndex:indexPath.row];
     DOTableElement *formElement = (DOTableElement*)rowAtIndex;
     
-    return [formElement cellForTableView:tableView];
+    if(formElement.cellBaseStyle != UITableViewCellStyleDefault)
+        return [formElement cellForTableView:tableView cellBaseStyle:formElement.cellBaseStyle];
+    else
+        return [formElement cellForTableView:tableView];
 }
 
 - (NSString *)tableView:(UITableView *)tableView titleForHeaderInSection:(NSInteger)section
