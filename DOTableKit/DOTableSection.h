@@ -38,6 +38,7 @@
 - (id)initWithTitle:(NSString*)title;
 - (void)addElement:(DOTableElement*)section;
 - (void)removeElement:(DOTableElement*)element;
+- (void)removeAllElements;
 - (void)replaceElement:(DOTableElement*)currentElement withElement:(DOTableElement*)newElement;
 - (void)tableElement:(DOTableElement *)element valueDidChange:(id)value;
 

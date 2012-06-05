@@ -43,6 +43,11 @@
         [_elements removeObject:element];
 }
 
+- (void)removeAllElements
+{
+    [_elements removeAllObjects];
+}
+
 - (void)replaceElement:(DOTableElement*)currentElement withElement:(DOTableElement*)newElement
 {
     if(![_elements containsObject:currentElement])
