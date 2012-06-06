@@ -15,6 +15,8 @@
 @synthesize value;
 @synthesize enabled;
 @synthesize cellBaseStyle;
+@synthesize cellSelectionStyle;
+@synthesize cellHeight;
 @synthesize action = actionBlock;
 
 - (Class)cellClass

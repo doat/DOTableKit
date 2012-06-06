@@ -29,6 +29,8 @@
 @property (nonatomic, retain) id value;
 
 @property (nonatomic, copy) void (^action)();
+@property (nonatomic, assign) CGFloat cellHeight;
+@property (nonatomic, assign) UITableViewCellSelectionStyle cellSelectionStyle;
 @property (nonatomic, assign) UITableViewCellStyle cellBaseStyle;
 @property (nonatomic, assign) BOOL enabled;
 
