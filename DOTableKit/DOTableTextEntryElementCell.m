@@ -86,12 +86,13 @@
 
 - (BOOL)textFieldShouldReturn:(UITextField *)textField
 {
+    [_element setValue:textField.text];
+
     if([(DOTableTextEntryElement*)self.element returnBlock])
     {
         ((DOTableTextEntryElement*)self.element).returnBlock(_element.value); 
     }
 
-    [_element setValue:textField.text];
     [textField resignFirstResponder];
     
     return YES;
