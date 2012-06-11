@@ -235,9 +235,9 @@
     id rowAtIndex = [formSection.elements objectAtIndex:indexPath.row];
     DOTableElement *formElement = (DOTableElement*)rowAtIndex;
 
-    if(formElement.enabled && formElement.action)
+    if(formElement.enabled && formElement.actionBlock)
     {
-        formElement.action();
+        formElement.actionBlock(formElement);
         [tableView deselectRowAtIndexPath:indexPath animated:YES];
     }
 }

@@ -15,9 +15,7 @@
     NSString *_title;
     NSString *_key;
     id value;
-    
-    void (^actionBlock)();
-    
+        
     BOOL enabled;
     BOOL invalid;
 }
@@ -28,7 +26,7 @@
 @property (nonatomic, retain) NSString *key;
 @property (nonatomic, retain) id value;
 
-@property (nonatomic, copy) void (^action)();
+@property (nonatomic, copy) void (^actionBlock)(DOTableElement *e);
 @property (nonatomic, assign) CGFloat cellHeight;
 @property (nonatomic, assign) UITableViewCellSelectionStyle cellSelectionStyle;
 @property (nonatomic, assign) UITableViewCellStyle cellBaseStyle;

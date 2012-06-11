@@ -23,7 +23,7 @@
     cell.detailTextLabel.text = self.value; 
     cell.imageView.image = nil; 
     
-    if(self.action && self.enabled)
+    if(self.actionBlock && self.enabled)
         cell.selectionStyle = UITableViewCellSelectionStyleBlue;
     else
         cell.selectionStyle = UITableViewCellSelectionStyleNone;

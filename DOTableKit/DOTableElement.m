@@ -17,7 +17,8 @@
 @synthesize cellBaseStyle;
 @synthesize cellSelectionStyle;
 @synthesize cellHeight;
-@synthesize action = actionBlock;
+@synthesize actionBlock;
+
 
 - (Class)cellClass
 {
@@ -88,8 +89,8 @@
     cell.detailTextLabel.text = self.value; 
     cell.imageView.image = nil; 
     
-    if(self.action && self.enabled)
-        cell.selectionStyle = UITableViewCellSelectionStyleBlue;
+    if(self.actionBlock && self.enabled)
+        cell.selectionStyle = self.cellSelectionStyle;
     else
         cell.selectionStyle = UITableViewCellSelectionStyleNone;
     

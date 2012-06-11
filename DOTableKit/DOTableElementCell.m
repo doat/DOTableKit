@@ -21,6 +21,7 @@
         _element = element;
         _height = 0;
     }
+    
     return self;
 }
 
