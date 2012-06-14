@@ -42,7 +42,8 @@
     _textField.secureTextEntry = ((DOTableTextEntryElement*)_element).isSecure;
     _textField.delegate = self;
     
-    //        _textField.backgroundColor = [UIColor redColor];
+    [[NSNotificationCenter defaultCenter] addObserver: self selector: @selector(textDidChange:)
+                                                 name: UITextFieldTextDidChangeNotification object: _textField];
     
     [self.contentView insertSubview:_textField aboveSubview:self.textLabel];
 }
@@ -78,6 +79,11 @@
     
 }
 
+- (void)textDidChange:(NSNotification*)notif
+{
+    [_element setValue: _textField.text];
+}
+
 - (void)textFieldDidEndEditing:(UITextField *)textField
 {
     //[_element.section.form.tableView setContentOffset:originalContentOffset animated:YES];
@@ -96,6 +102,11 @@
     [textField resignFirstResponder];
     
     return YES;
+}
+
+- (void)dealloc
+{
+    [[NSNotificationCenter defaultCenter] removeObserver:self];
 }
 /*
  // Only override drawRect: if you perform custom drawing.
