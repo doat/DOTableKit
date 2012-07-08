@@ -9,9 +9,7 @@
 #import <Foundation/Foundation.h>
 
 @interface DOTableElement : NSObject
-{
-    __weak DOTableSection *_section;
-    
+{   
     NSString *_title;
     NSString *_key;
     id value;
@@ -38,6 +36,7 @@
 - (UITableViewCell *)cellForTableView:(UITableView *)tableView;
 - (UITableViewCell *)cellForTableView:(UITableView *)tableView cellBaseStyle:(UITableViewCellStyle)cellStyle;
 
+- (void)cellDidBecomeFirstResponder;
 - (void)markAsInvalid:(BOOL)invalid;
 
 @end

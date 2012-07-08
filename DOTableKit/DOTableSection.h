@@ -41,5 +41,6 @@
 - (void)removeAllElements;
 - (void)replaceElement:(DOTableElement*)currentElement withElement:(DOTableElement*)newElement;
 - (void)tableElement:(DOTableElement *)element valueDidChange:(id)value;
+- (void)tableElementDidBecomeFirstResponder:(DOTableElement *)element;
 
 @end

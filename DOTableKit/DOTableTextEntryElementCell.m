@@ -66,16 +66,23 @@
 }
 - (void)textFieldDidBeginEditing:(UITextField *)textField
 {
-    originalContentOffset = _element.section.form.tableView.contentOffset;
+    [_element cellDidBecomeFirstResponder];
     
-    dispatch_time_t popTime = dispatch_time(DISPATCH_TIME_NOW, 50 * USEC_PER_SEC);
-    dispatch_after(popTime, dispatch_get_main_queue(), ^(void){
-        NSIndexPath *ip = [_element.section.form indexPathByElement:_element];
-        UITableViewCell *cell = [_element.section.form.tableView cellForRowAtIndexPath:ip]; 
-        CGFloat sectionHeight = [_element.section.form.tableView sectionFooterHeight];
-        CGPoint newOffset = CGPointMake(0, cell.frame.origin.y - sectionHeight);
-        [_element.section.form.tableView setContentOffset:newOffset animated:YES];
-    });
+    superviewTaps = [[UITapGestureRecognizer alloc] initWithTarget:self
+                                                                          action:@selector(_dismissKeyboard:)];
+    
+    [_element.section.form.tableView addGestureRecognizer:superviewTaps];
+
+    //    originalContentOffset = _element.section.form.tableView.contentOffset;
+//    
+//    dispatch_time_t popTime = dispatch_time(DISPATCH_TIME_NOW, 50 * USEC_PER_SEC);
+//    dispatch_after(popTime, dispatch_get_main_queue(), ^(void){
+//        NSIndexPath *ip = [_element.section.form indexPathByElement:_element];
+//        UITableViewCell *cell = [_element.section.form.tableView cellForRowAtIndexPath:ip]; 
+//        CGFloat sectionHeight = [_element.section.form.tableView sectionFooterHeight];
+//        CGPoint newOffset = CGPointMake(0, cell.frame.origin.y - sectionHeight);
+//        [_element.section.form.tableView setContentOffset:newOffset animated:YES];
+//    });
     
 }
 
@@ -88,6 +95,8 @@
 {
     //[_element.section.form.tableView setContentOffset:originalContentOffset animated:YES];
     [_element setValue:textField.text];
+    
+    [_element.section.form.tableView removeGestureRecognizer:superviewTaps];
 }
 
 - (BOOL)textFieldShouldReturn:(UITextField *)textField
@@ -102,6 +111,11 @@
     [textField resignFirstResponder];
     
     return YES;
+}
+
+- (void)_dismissKeyboard:(id)sender
+{
+    [_textField endEditing:YES];
 }
 
 - (void)dealloc

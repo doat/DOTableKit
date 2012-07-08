@@ -37,6 +37,7 @@
     _tableView = tableView;
     [_tableView setDataSource:self];
     [_tableView setDelegate:self];
+    
 }
 
 - (NSIndexPath*)indexPathByElement:(DOTableElement*)element
@@ -76,6 +77,12 @@
 {
     if([_delegate respondsToSelector: @selector(tableElement:valueDidChange:)])
         [_delegate tableElement: element valueDidChange: value];
+}
+
+- (void)tableElementDidBecomeFirstResponder:(DOTableElement *)element;
+{
+    if([_delegate respondsToSelector: @selector(tableElementDidBecomeFirstResponder:)])
+        [_delegate tableElementDidBecomeFirstResponder:element];
 }
 
 - (DOTableSection*) sectionAtIndex:(NSUInteger)index

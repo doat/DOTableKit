@@ -65,4 +65,9 @@
     [_form tableElement: element valueDidChange: value];
 }
 
+- (void)tableElementDidBecomeFirstResponder:(DOTableElement *)element;
+{
+    [_form tableElementDidBecomeFirstResponder:element];
+}
+
 @end

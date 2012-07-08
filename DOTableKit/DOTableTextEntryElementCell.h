@@ -10,6 +10,7 @@
 
 @interface DOTableTextEntryElementCell : DOTableElementCell <UITextFieldDelegate>
 {
+    UITapGestureRecognizer *superviewTaps;
     UITextField *_textField;
     CGPoint originalContentOffset;
 }

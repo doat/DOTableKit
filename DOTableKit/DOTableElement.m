@@ -65,6 +65,11 @@
     }
 }
 
+- (void)cellDidBecomeFirstResponder
+{
+    [self.section tableElementDidBecomeFirstResponder:self];
+}
+
 - (void)markAsInvalid:(BOOL)mark
 {
     invalid = mark;

@@ -17,6 +17,7 @@
 @protocol DOTableDefinitionDelegate <NSObject>
 @optional
 - (void)tableElement:(DOTableElement *)element valueDidChange:(id)value;
+- (void)tableElementDidBecomeFirstResponder:(DOTableElement *)element;
 - (void)tableDefinition:(DOTableDefinition*)form willDisplayCell:(DOTableElementCell*)cell forElement:(DOTableElement*)element inTableView:(UITableView*)tableView;
 @end
 
@@ -36,6 +37,7 @@
 - (DOTableElement*) elementForKey:(NSString*)aKey;
 
 - (void)tableElement:(DOTableElement *)element valueDidChange:(id)value;
+- (void)tableElementDidBecomeFirstResponder:(DOTableElement *)element;
 
 @end
 
