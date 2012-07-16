@@ -36,6 +36,26 @@
     return self;
 }
 
+- (id)initWithPlaceholder:(NSString*)placeholder key:(NSString*)key
+{
+    self = [self initWithTitle:nil placeholder:placeholder];
+    if (self) 
+    {
+        self.key = key;
+    }
+    return self;
+}
+
+- (id)initWithTitle:(NSString *)title placeholder:(NSString*)placeholder key:(NSString*)key
+{
+    self = [self initWithTitle:title placeholder:placeholder];
+    if (self) 
+    {
+        self.key = key;
+    }
+    return self;
+}
+
 - (UITableViewCell *)cellForTableView:(UITableView *)tableView
 {
     DOTableTextEntryElementCell *cell = (DOTableTextEntryElementCell *)[super cellForTableView:tableView cellBaseStyle:(UITableViewCellStyleDefault)];

@@ -32,6 +32,25 @@
 @synthesize sections = _sections;
 @synthesize tableView = _tableView;
 
++ (id)tableWithSections:(DOTableSection*)first, ...
+{
+	DOTableDefinition* instance = [[self alloc] init];
+	if (instance) 
+    {
+		va_list args;
+		va_start(args, first);
+
+            [instance addSection:first];
+        
+            DOTableSection *aSection;
+            while ((aSection = va_arg(args, DOTableSection*)))
+                [instance addSection:aSection];
+
+		va_end(args);
+	}
+	return instance;
+}
+
 - (void)setTableView:(UITableView *)tableView
 {
     _tableView = tableView;

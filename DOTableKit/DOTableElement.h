@@ -33,6 +33,10 @@
 - (Class)cellClass;
 - (id)initWithKey:(NSString*)key;
 - (id)initWithTitle:(NSString*)title;
+- (id)initWithTitle:(NSString*)aTitle key:(NSString*)aKey;
+- (id)initWithTitle:(NSString*)aTitle key:(NSString*)aKey value:(id)aValue;
+- (id)initWithTitle:(NSString*)aTitle actionBlock:(void(^)(DOTableElement *e))block;
+- (id)initWithTitle:(NSString*)aTitle key:(NSString*)aKey actionBlock:(void(^)(DOTableElement *e))block;
 - (UITableViewCell *)cellForTableView:(UITableView *)tableView;
 - (UITableViewCell *)cellForTableView:(UITableView *)tableView cellBaseStyle:(UITableViewCellStyle)cellStyle;
 

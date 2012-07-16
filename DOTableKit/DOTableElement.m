@@ -55,6 +55,51 @@
     return self;
 }
 
+- (id)initWithTitle:(NSString*)aTitle key:(NSString*)aKey
+{
+    self = [self init];
+    if (self) 
+    {
+        self.title = aTitle;
+        self.key = aKey;
+    }
+    return self;
+}
+
+- (id)initWithTitle:(NSString*)aTitle key:(NSString*)aKey value:(id)aValue
+{
+    self = [self init];
+    if (self) 
+    {
+        self.title = aTitle;
+        self.key = aKey;
+        self.value = aValue;
+    }
+    return self;
+}
+
+- (id)initWithTitle:(NSString*)aTitle actionBlock:(void(^)(DOTableElement *e))block
+{
+    self = [self init];
+    if (self) 
+    {
+        self.title = aTitle;
+        self.actionBlock = block;
+    }
+    return self;
+}
+
+
+- (id)initWithTitle:(NSString *)aTitle key:(NSString *)aKey actionBlock:(void (^)(DOTableElement *))block
+{
+    self = [self initWithTitle:aTitle key:aKey];
+    if (self) 
+    {
+        self.actionBlock = block;
+    }
+    return self;    
+}
+
 - (void)setValue: (id)aValue
 {
     if (value != aValue)

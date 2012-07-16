@@ -35,7 +35,13 @@
 @property (nonatomic, copy) UIView*(^footerViewBlock)(NSString *footerText);
 @property (nonatomic, copy) UIView*(^headerViewBlock)(NSString *headerText);
 
++ (id)sectionWithElements:(DOTableElement*)first, ...;
++ (id)sectionWithTitle:(NSString*)aTitle elements:(DOTableElement*)first, ...;
++ (id)sectionWithKey:(NSString*)aKey elements:(DOTableElement*)first, ...;
++ (id)sectionWithTitle:(NSString*)aTitle key:(NSString*)aKey elements:(DOTableElement*)first, ...;
+
 - (id)initWithTitle:(NSString*)title;
+- (id)initWithTitle:(NSString *)title key:(NSString*)key;
 - (void)addElement:(DOTableElement*)section;
 - (void)removeElement:(DOTableElement*)element;
 - (void)removeAllElements;

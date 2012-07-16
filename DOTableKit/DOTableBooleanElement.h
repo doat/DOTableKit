@@ -21,5 +21,6 @@ typedef enum {
 @property (nonatomic, assign) DOTableBooleanElementCellStyle style;
 
 - (id)initWithTitle:(NSString *)title boolean:(BOOL)boolVal;
+- (id)initWithTitle:(NSString *)title boolean:(BOOL)boolVal key:(NSString*)aKey;
 
 @end

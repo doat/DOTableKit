@@ -26,5 +26,7 @@
 
 - (id)initWithTitle:(NSString *)title placeholder:(NSString*)placeholder;
 - (id)initWithPlaceholder:(NSString*)placeholder;
+- (id)initWithTitle:(NSString *)title placeholder:(NSString*)placeholder key:(NSString*)key;
+- (id)initWithPlaceholder:(NSString*)placeholder key:(NSString*)key;
 
 @end

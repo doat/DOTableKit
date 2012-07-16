@@ -27,6 +27,8 @@
 @property (nonatomic, weak) UITableView *tableView;
 @property (nonatomic, readonly) NSMutableArray *sections;
 
++ (id)tableWithSections:(DOTableSection*)first, ...;
+
 - (NSIndexPath*)indexPathByElement:(DOTableElement*)element;
 
 - (void)addSection:(DOTableSection*)section;

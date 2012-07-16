@@ -35,6 +35,18 @@
     return self;
 }
 
+- (id)initWithTitle:(NSString *)title boolean:(BOOL)boolVal key:(NSString*)aKey
+{
+    self = [super initWithTitle:title];
+    if (self) 
+    {
+        self.value = [NSNumber numberWithBool:boolVal];
+        self.style = DOTableBooleanElementStyleSwitch;
+        self.key = aKey;
+    }
+    return self;
+}
+
 - (UITableViewCell *)cellForTableView:(UITableView *)tableView
 {
     DOTableElementCell *cell = (DOTableElementCell *)[super cellForTableView:tableView cellBaseStyle:(UITableViewCellStyleDefault)];

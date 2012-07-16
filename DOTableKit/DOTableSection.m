@@ -17,6 +17,84 @@
 @synthesize footerViewBlock;
 @synthesize headerViewBlock;
 
++ (id)sectionWithElements:(DOTableElement*)first, ...
+{
+	DOTableSection *instance = [[self alloc] init];
+	if (instance) 
+    {       
+		va_list args;
+		va_start(args, first);
+        
+        [instance addElement:first];
+        
+        DOTableElement *anElement;
+        while ((anElement = va_arg(args, DOTableElement*)))
+            [instance addElement:anElement];
+        
+		va_end(args);
+	}
+	return instance;
+}
+
++ (id)sectionWithTitle:(NSString*)aTitle elements:(DOTableElement*)first, ...
+{
+	DOTableSection *instance = [[self alloc] initWithTitle:aTitle];
+	if (instance) 
+    {       
+		va_list args;
+		va_start(args, first);
+        
+        [instance addElement:first];
+        
+        DOTableElement *anElement;
+        while ((anElement = va_arg(args, DOTableElement*)))
+            [instance addElement:anElement];
+        
+		va_end(args);
+	}
+	return instance;
+}
+
++ (id)sectionWithKey:(NSString*)aKey elements:(DOTableElement*)first, ...
+{
+	DOTableSection *instance = [[self alloc] init];
+	if (instance) 
+    {        
+        instance.key = aKey;
+        
+		va_list args;
+		va_start(args, first);
+        
+        [instance addElement:first];
+        
+        DOTableElement *anElement;
+        while ((anElement = va_arg(args, DOTableElement*)))
+            [instance addElement:anElement];
+        
+		va_end(args);
+	}
+	return instance;
+}
+
++ (id)sectionWithTitle:(NSString*)aTitle key:(NSString*)aKey elements:(DOTableElement*)first, ...
+{
+	DOTableSection *instance = [[self alloc] initWithTitle:aTitle key:aKey];
+	if (instance) 
+    {                
+		va_list args;
+		va_start(args, first);
+        
+        [instance addElement:first];
+        
+        DOTableElement *anElement;
+        while ((anElement = va_arg(args, DOTableElement*)))
+            [instance addElement:anElement];
+        
+		va_end(args);
+	}
+	return instance;
+}
+
 - (id)initWithTitle:(NSString*)title
 {
     self = [super init];
@@ -25,6 +103,17 @@
         self.title = title;
     }
     return self;
+}
+
+- (id)initWithTitle:(NSString *)title key:(NSString*)key
+{
+    self = [super init];
+    if (self) 
+    {
+        self.title = title;
+        self.key = key;
+    }
+    return self;    
 }
 
 - (void)addElement:(DOTableElement*)element
