@@ -51,13 +51,4 @@
     _thumbnailView.center = CGPointMake(self.contentView.frame.size.width-10, 10);
 }
 
-/*
-// Only override drawRect: if you perform custom drawing.
-// An empty implementation adversely affects performance during animation.
-- (void)drawRect:(CGRect)rect
-{
-    // Drawing code
-}
-*/
-
 @end
