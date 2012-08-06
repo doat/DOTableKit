@@ -135,6 +135,7 @@
         cell = [[cellClass alloc] initWithElement:self tableViewCellStyle:cellStyle];
     }
     
+    cell.element = self;
     cell.textLabel.text = self.title; 
     cell.detailTextLabel.text = self.value; 
     cell.imageView.image = nil; 

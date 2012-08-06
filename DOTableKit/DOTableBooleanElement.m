@@ -60,18 +60,16 @@
         case DOTableBooleanElementStyleCheckbox:
         {
             [cell.textLabel setFont:[UIFont systemFontOfSize:17.0f]];
+            [((DOTableCheckElementCell*)cell).buttonControl setSelected: [self.value boolValue]];
         }
             break;
         default:
             break;
     }
     
-    
     cell.textLabel.text = self.title;
-    
     cell.detailTextLabel.text = nil; 
     cell.imageView.image = nil; 
-    
     cell.selectionStyle = UITableViewCellSelectionStyleNone;
     cell.showsReorderControl = YES;
     cell.accessoryView = nil;
