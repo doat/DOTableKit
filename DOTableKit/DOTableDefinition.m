@@ -92,6 +92,22 @@
     return dict;
 }
 
+- (NSArray*)orderedValuesArray
+{
+    NSMutableArray *valuesArray = [NSMutableArray array];
+    for (DOTableSection *section in _sections)
+    {
+        for (DOTableElement *element in section.elements)
+        {
+            if(element.key)
+                if(element.value)
+                    [valuesArray addObject:@{@"key":element.key, @"value":element.value}];
+        }
+    }
+    
+    return valuesArray;
+}
+
 - (void)tableElement:(DOTableElement *)element valueDidChange:(id)value
 {
     if([_delegate respondsToSelector: @selector(tableElement:valueDidChange:)])

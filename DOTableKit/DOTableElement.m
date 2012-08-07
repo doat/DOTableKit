@@ -19,6 +19,10 @@
 @synthesize cellHeight;
 @synthesize actionBlock;
 
+- (NSString *)description
+{
+    return [NSString stringWithFormat:@"<%@: %p, key: %@, value: %@>", NSStringFromClass([self class]), self, self.key, self.value];
+}
 
 - (Class)cellClass
 {

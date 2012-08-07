@@ -17,6 +17,11 @@
 @synthesize footerViewBlock;
 @synthesize headerViewBlock;
 
+- (NSString *)description
+{
+    return [NSString stringWithFormat:@"<%@: %p, key: %@, title: %@, footer: %@, elements: %@>", NSStringFromClass([self class]), self, self.key, self.title, self.footer, self.elements];
+}
+
 + (id)sectionWithElements:(DOTableElement*)first, ...
 {
 	DOTableSection *instance = [[self alloc] init];
