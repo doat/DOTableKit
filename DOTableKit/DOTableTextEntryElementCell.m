@@ -16,17 +16,17 @@
 -(id)initWithElement:(DOTableElement *)element tableViewCellStyle:(UITableViewCellStyle)style
 {
     self = [super initWithElement:element tableViewCellStyle:style];
-    if (self) 
+    if (self)
     {
         [self setupCell];
     }
-    return self;    
+    return self;
 }
 
 - (id)initWithElement:(DOTableTextEntryElement*)element
 {
     self = [super initWithElement:element];
-    if (self) 
+    if (self)
     {
         [self setupCell];
     }
@@ -51,7 +51,7 @@
 - (void)layoutSubviews
 {
     [super layoutSubviews];
-    if (IsEmpty(self.textLabel.text)) 
+    if (IsEmpty(self.textLabel.text))
     {
         _textField.frame = CGRectMake(kPadding,10,self.contentView.frame.size.width-10-kPadding, self.frame.size.height-20);
     }
@@ -69,21 +69,10 @@
     [_element cellDidBecomeFirstResponder];
     
     superviewTaps = [[UITapGestureRecognizer alloc] initWithTarget:self
-                                                                          action:@selector(_dismissKeyboard:)];
+                                                            action:@selector(_dismissKeyboard:)];
     
+    superviewTaps.delegate = self;
     [_element.section.form.tableView addGestureRecognizer:superviewTaps];
-
-    //    originalContentOffset = _element.section.form.tableView.contentOffset;
-//    
-//    dispatch_time_t popTime = dispatch_time(DISPATCH_TIME_NOW, 50 * USEC_PER_SEC);
-//    dispatch_after(popTime, dispatch_get_main_queue(), ^(void){
-//        NSIndexPath *ip = [_element.section.form indexPathByElement:_element];
-//        UITableViewCell *cell = [_element.section.form.tableView cellForRowAtIndexPath:ip]; 
-//        CGFloat sectionHeight = [_element.section.form.tableView sectionFooterHeight];
-//        CGPoint newOffset = CGPointMake(0, cell.frame.origin.y - sectionHeight);
-//        [_element.section.form.tableView setContentOffset:newOffset animated:YES];
-//    });
-    
 }
 
 - (void)textDidChange:(NSNotification*)notif
@@ -93,29 +82,39 @@
 
 - (void)textFieldDidEndEditing:(UITextField *)textField
 {
-    //[_element.section.form.tableView setContentOffset:originalContentOffset animated:YES];
     [_element setValue:textField.text];
-    
     [_element.section.form.tableView removeGestureRecognizer:superviewTaps];
 }
 
 - (BOOL)textFieldShouldReturn:(UITextField *)textField
 {
     [_element setValue:textField.text];
-
+    
     if([(DOTableTextEntryElement*)self.element returnBlock])
     {
-        ((DOTableTextEntryElement*)self.element).returnBlock(_element.value); 
+        ((DOTableTextEntryElement*)self.element).returnBlock(_element.value);
     }
-
+    
     [textField resignFirstResponder];
     
     return YES;
 }
 
-- (void)_dismissKeyboard:(id)sender
+- (BOOL)gestureRecognizer:(UIGestureRecognizer *)gestureRecognizer shouldReceiveTouch:(UITouch *)touch
+{
+    CGPoint touchPoint = [touch locationInView:self];
+    if (!CGRectContainsPoint(self.textField.frame, touchPoint))
+    {
+        return YES;
+    }
+    
+    return NO;
+}
+
+- (void)_dismissKeyboard:(UITapGestureRecognizer*)recognizer
 {
     [_textField endEditing:YES];
+    [_element.section.form.tableView removeGestureRecognizer:superviewTaps];
 }
 
 - (void)dealloc

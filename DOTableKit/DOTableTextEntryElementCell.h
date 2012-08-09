@@ -8,11 +8,10 @@
 
 #import "DOTableKit.h"
 
-@interface DOTableTextEntryElementCell : DOTableElementCell <UITextFieldDelegate>
+@interface DOTableTextEntryElementCell : DOTableElementCell <UITextFieldDelegate, UIGestureRecognizerDelegate>
 {
     UITapGestureRecognizer *superviewTaps;
     UITextField *_textField;
-    CGPoint originalContentOffset;
 }
 
 @property (nonatomic, readonly) UITextField *textField;
