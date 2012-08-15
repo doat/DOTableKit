@@ -140,6 +140,7 @@
     }
     
     cell.element = self;
+    cell.shouldIndentWhileEditing = self.shouldIndentWhileEditing;
     cell.textLabel.text = self.title; 
     cell.detailTextLabel.text = self.value; 
     cell.imageView.image = nil; 

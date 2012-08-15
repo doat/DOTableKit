@@ -131,6 +131,14 @@
     [_elements addObject:element];
 }
 
+- (void)addElement:(DOTableElement*)element atIndex:(NSUInteger)index
+{
+    element.section = self;
+    
+    [_elements insertObject:element atIndex:index];
+}
+
+
 - (void)removeElement:(DOTableElement*)element
 {
     if([_elements containsObject:element])

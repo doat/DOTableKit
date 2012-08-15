@@ -17,6 +17,7 @@
 @protocol DOTableDefinitionDelegate <NSObject>
 @optional
 - (void)tableElement:(DOTableElement *)element valueDidChange:(id)value;
+- (void)tableElement:(DOTableElement *)element movedToSection:(DOTableSection*)section;
 - (void)tableElementDidBecomeFirstResponder:(DOTableElement *)element;
 - (void)tableDefinition:(DOTableDefinition*)form willDisplayCell:(DOTableElementCell*)cell forElement:(DOTableElement*)element inTableView:(UITableView*)tableView;
 @end
@@ -29,7 +30,7 @@
 
 + (id)tableWithSections:(DOTableSection*)first, ...;
 
-- (NSIndexPath*)indexPathByElement:(DOTableElement*)element;
+- (NSIndexPath*)indexPathForElement:(DOTableElement*)element;
 
 - (void)addSection:(DOTableSection*)section;
 - (NSDictionary*) valuesDictionary;
@@ -38,6 +39,7 @@
 - (DOTableSection*) sectionAtIndex:(NSUInteger)index;
 - (DOTableSection*) sectionForKey:(NSString*)aKey;
 - (DOTableElement*) elementForKey:(NSString*)aKey;
+- (DOTableElement*) elementForIndexPath:(NSIndexPath*)indexPath;
 
 - (void)tableElement:(DOTableElement *)element valueDidChange:(id)value;
 - (void)tableElementDidBecomeFirstResponder:(DOTableElement *)element;

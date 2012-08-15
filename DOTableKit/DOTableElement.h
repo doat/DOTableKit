@@ -30,6 +30,10 @@
 @property (nonatomic, assign) UITableViewCellStyle cellBaseStyle;
 @property (nonatomic, assign) BOOL enabled;
 
+@property (nonatomic, assign) BOOL canEditCell;
+@property (nonatomic, assign) BOOL canMoveCell;
+@property (nonatomic, assign) BOOL shouldIndentWhileEditing;
+
 - (Class)cellClass;
 - (id)initWithKey:(NSString*)key;
 - (id)initWithTitle:(NSString*)title;

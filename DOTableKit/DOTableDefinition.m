@@ -59,14 +59,6 @@
     
 }
 
-- (NSIndexPath*)indexPathByElement:(DOTableElement*)element
-{
-    NSInteger sectionIndex = [_sections indexOfObject:element.section];
-    NSInteger elementIndex = [element.section.elements indexOfObject:element];
-    
-    return [NSIndexPath indexPathForRow:elementIndex inSection:sectionIndex];
-}
-
 - (void)addSection:(DOTableSection*)section
 {
     if(!_sections)
@@ -151,6 +143,33 @@
     return nil;
 }
 
+- (DOTableSection*) sectionForIndexPath:(NSIndexPath*)indexPath
+{
+    id sectionAtIndex = [_sections objectAtIndex:indexPath.section];
+    DOTableSection *formSection = (DOTableSection*)sectionAtIndex;
+    
+    return formSection;
+}
+
+- (DOTableElement*) elementForIndexPath:(NSIndexPath*)indexPath
+{
+    id sectionAtIndex = [_sections objectAtIndex:indexPath.section];
+    DOTableSection *formSection = (DOTableSection*)sectionAtIndex;
+    
+    id rowAtIndex = [formSection.elements objectAtIndex:indexPath.row];
+    DOTableElement *formElement = (DOTableElement*)rowAtIndex;
+
+    return formElement;
+}
+
+- (NSIndexPath*)indexPathForElement:(DOTableElement*)element
+{
+    NSInteger sectionIndex = [_sections indexOfObject:element.section];
+    NSInteger elementIndex = [element.section.elements indexOfObject:element];
+    
+    return [NSIndexPath indexPathForRow:elementIndex inSection:sectionIndex];
+}
+
 - (void)scrollViewWillBeginDragging:(UIScrollView *)scrollView
 {
     [scrollView endEditing:YES];
@@ -171,11 +190,7 @@
 
 - (void)tableView:(UITableView *)tableView willDisplayCell:(UITableViewCell *)cell forRowAtIndexPath:(NSIndexPath *)indexPath
 {
-    id sectionAtIndex = [_sections objectAtIndex:indexPath.section];
-    DOTableSection *formSection = (DOTableSection*)sectionAtIndex;
-    
-    id rowAtIndex = [formSection.elements objectAtIndex:indexPath.row];
-    DOTableElement *formElement = (DOTableElement*)rowAtIndex;
+    DOTableElement *formElement = [self elementForIndexPath:indexPath];
 
     if([_delegate respondsToSelector: @selector(tableDefinition:willDisplayCell:forElement:inTableView:)])
         [_delegate tableDefinition:self willDisplayCell:(DOTableElementCell*)cell forElement:formElement inTableView:tableView];
@@ -185,11 +200,7 @@
 
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath
 {
-    id sectionAtIndex = [_sections objectAtIndex:indexPath.section];
-    DOTableSection *formSection = (DOTableSection*)sectionAtIndex;
-    
-    id rowAtIndex = [formSection.elements objectAtIndex:indexPath.row];
-    DOTableElement *formElement = (DOTableElement*)rowAtIndex;
+    DOTableElement *formElement = [self elementForIndexPath:indexPath];
     
     if(formElement.cellBaseStyle != UITableViewCellStyleDefault)
         return [formElement cellForTableView:tableView cellBaseStyle:formElement.cellBaseStyle];
@@ -197,26 +208,61 @@
         return [formElement cellForTableView:tableView];
 }
 
+- (BOOL)tableView:(UITableView *)tableView canEditRowAtIndexPath:(NSIndexPath *)indexPath
+{
+    DOTableElement *element = [self elementForIndexPath:indexPath];
+    return element.canEditCell;
+}
+
+- (BOOL)tableView:(UITableView *)tableView canMoveRowAtIndexPath:(NSIndexPath *)indexPath
+{
+    DOTableElement *element = [self elementForIndexPath:indexPath];
+    return element.canMoveCell;
+}
+
+-(BOOL)tableView:(UITableView *)tableView shouldIndentWhileEditingRowAtIndexPath:(NSIndexPath *)indexPath
+{
+    DOTableElement *element = [self elementForIndexPath:indexPath];
+    return element.shouldIndentWhileEditing;
+}
+
+-(UITableViewCellEditingStyle)tableView:(UITableView *)tableView editingStyleForRowAtIndexPath:(NSIndexPath *)indexPath
+{
+    return UITableViewCellEditingStyleNone;
+}
+
+- (void)tableView:(UITableView *)tableView moveRowAtIndexPath:(NSIndexPath *)fromIndexPath toIndexPath:(NSIndexPath *)toIndexPath
+{
+    DOTableElement *elementToMove = [self elementForIndexPath:fromIndexPath];
+    
+    DOTableSection *fromSection = [self sectionForIndexPath:fromIndexPath];
+    [fromSection removeElement:elementToMove];
+    
+    DOTableSection *toSection = [self sectionForIndexPath:toIndexPath];
+    [toSection addElement:elementToMove atIndex:toIndexPath.row];
+    
+    if([_delegate respondsToSelector:@selector(tableElement:movedToSection:)])
+        [_delegate tableElement:elementToMove movedToSection:toSection];
+    
+    return;
+}
+
 - (NSString *)tableView:(UITableView *)tableView titleForHeaderInSection:(NSInteger)section
 {
-    id sectionAtIndex = [_sections objectAtIndex:section];
-    DOTableSection *formSection = (DOTableSection*)sectionAtIndex;
+    DOTableSection *formSection = (DOTableSection*)[_sections objectAtIndex:section];
 
     return formSection.title;
 }
 
 -(NSString *)tableView:(UITableView *)tableView titleForFooterInSection:(NSInteger)section
 {
-    id sectionAtIndex = [_sections objectAtIndex:section];
-    DOTableSection *formSection = (DOTableSection*)sectionAtIndex;
-    
+    DOTableSection *formSection = (DOTableSection*)[_sections objectAtIndex:section];    
     return formSection.footer;    
 }
 
 - (UIView *)tableView:(UITableView *)tableView viewForFooterInSection:(NSInteger)section
 {
-    id sectionAtIndex = [_sections objectAtIndex:section];
-    DOTableSection *formSection = (DOTableSection*)sectionAtIndex;
+    DOTableSection *formSection = (DOTableSection*)[_sections objectAtIndex:section];
     
     if (formSection.footerViewBlock)
         return formSection.footerViewBlock(formSection.footer);
@@ -226,8 +272,7 @@
 
 - (UIView *)tableView:(UITableView *)tableView viewForHeaderInSection:(NSInteger)section
 {
-    id sectionAtIndex = [_sections objectAtIndex:section];
-    DOTableSection *formSection = (DOTableSection*)sectionAtIndex;
+    DOTableSection *formSection = (DOTableSection*)[_sections objectAtIndex:section];
     
     if (formSection.headerViewBlock)
         return formSection.headerViewBlock(formSection.title);
@@ -237,8 +282,7 @@
 
 - (CGFloat)tableView:(UITableView *)tableView heightForFooterInSection:(NSInteger)section
 {
-    id sectionAtIndex = [_sections objectAtIndex:section];
-    DOTableSection *formSection = (DOTableSection*)sectionAtIndex;
+    DOTableSection *formSection = (DOTableSection*)[_sections objectAtIndex:section];
     
     if (formSection.footerViewBlock)
         return formSection.footerViewBlock(formSection.footer).frame.size.height;
@@ -248,8 +292,7 @@
 
 - (CGFloat)tableView:(UITableView *)tableView heightForHeaderInSection:(NSInteger)section
 {
-    id sectionAtIndex = [_sections objectAtIndex:section];
-    DOTableSection *formSection = (DOTableSection*)sectionAtIndex;
+    DOTableSection *formSection = (DOTableSection*)[_sections objectAtIndex:section];
     
     if (formSection.headerViewBlock)
         return formSection.headerViewBlock(formSection.title).frame.size.height;
@@ -259,11 +302,7 @@
 
 -(CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath
 {
-    id sectionAtIndex = [_sections objectAtIndex:indexPath.section];
-    DOTableSection *formSection = (DOTableSection*)sectionAtIndex;
-    
-    id rowAtIndex = [formSection.elements objectAtIndex:indexPath.row];
-    DOTableElement *formElement = (DOTableElement*)rowAtIndex;
+    DOTableElement *formElement = [self elementForIndexPath:indexPath];
     
     CGFloat height = ((DOTableElementCell*)[formElement cellForTableView:self.tableView]).height;
     return height?:44.0f;
@@ -271,12 +310,8 @@
 
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath
 {
-    id sectionAtIndex = [_sections objectAtIndex:indexPath.section];
-    DOTableSection *formSection = (DOTableSection*)sectionAtIndex;
+    DOTableElement *formElement = [self elementForIndexPath:indexPath];
     
-    id rowAtIndex = [formSection.elements objectAtIndex:indexPath.row];
-    DOTableElement *formElement = (DOTableElement*)rowAtIndex;
-
     if(formElement.enabled && formElement.actionBlock)
     {
         formElement.actionBlock(formElement);
