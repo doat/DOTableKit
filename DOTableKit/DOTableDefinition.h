@@ -14,7 +14,7 @@
 @class DOTableSection;
 @class DOTableElement;
 
-@protocol DOTableDefinitionDelegate <NSObject>
+@protocol DOTableDefinitionDelegate <NSObject, UIScrollViewDelegate>
 @optional
 - (void)tableElement:(DOTableElement *)element valueDidChange:(id)value;
 - (void)tableElement:(DOTableElement *)element movedToSection:(DOTableSection*)section;

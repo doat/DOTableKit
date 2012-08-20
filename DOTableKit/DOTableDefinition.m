@@ -6,6 +6,7 @@
 //  Copyright (c) 2012 DoAT Media Ltd.. All rights reserved.
 //
 
+#import <objc/runtime.h>
 #import "DOTableKit.h"
 
 @implementation UIScrollView (DOTableKit)
@@ -32,6 +33,12 @@
 @synthesize sections = _sections;
 @synthesize tableView = _tableView;
 
+- (BOOL)_protocol:(Protocol*)proto hasMethod:(SEL)selector
+{
+    struct objc_method_description hasMethod = protocol_getMethodDescription(proto, selector, NO, YES);
+    return hasMethod.name != NULL;
+}
+
 + (id)tableWithSections:(DOTableSection*)first, ...
 {
 	DOTableDefinition* instance = [[self alloc] init];
@@ -57,6 +64,16 @@
     [_tableView setDataSource:self];
     [_tableView setDelegate:self];
     
+}
+
+-(void)setDelegate:(id<DOTableDefinitionDelegate>)delegate
+{
+    _delegate = delegate;
+    
+    // cause tableview to reload delegate.
+    // this time we have _delegate set, it might respond to UIScrollViewDelegate messages.
+    [_tableView setDelegate:nil];
+    [_tableView setDelegate:self];
 }
 
 - (void)addSection:(DOTableSection*)section
@@ -317,6 +334,28 @@
         formElement.actionBlock(formElement);
         [tableView deselectRowAtIndexPath:indexPath animated:YES];
     }
+}
+
+// Forward UIScrollViewDelegate messages
+- (BOOL)respondsToSelector:(SEL)selector
+{
+    BOOL returnValue = [super respondsToSelector:selector];
+    
+    if(!returnValue && [self _protocol:@protocol(UIScrollViewDelegate) hasMethod:selector])
+    {
+        returnValue = [_delegate respondsToSelector:selector];
+    }
+    
+    return returnValue;
+}
+
+- (id)forwardingTargetForSelector:(SEL)aSelector
+{
+    if([self _protocol:@protocol(UIScrollViewDelegate) hasMethod:aSelector])
+        if([_delegate respondsToSelector:aSelector])
+            return _delegate;
+    
+    return nil;
 }
 
 @end
