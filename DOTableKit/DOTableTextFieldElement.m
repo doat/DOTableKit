@@ -8,7 +8,7 @@
 
 #import "DOTableKit.h"
 
-@implementation DOTableTextEntryElement
+@implementation DOTableTextFieldElement
 @synthesize placeholder = _placeholder;
 @synthesize keyboardType = _keyType;
 @synthesize returnKeyType = _returnKeyType;
@@ -58,7 +58,7 @@
 
 - (UITableViewCell *)cellForTableView:(UITableView *)tableView
 {
-    DOTableTextEntryElementCell *cell = (DOTableTextEntryElementCell *)[super cellForTableView:tableView cellBaseStyle:(UITableViewCellStyleDefault)];
+    DOTableTextFieldElementCell *cell = (DOTableTextFieldElementCell *)[super cellForTableView:tableView cellBaseStyle:(UITableViewCellStyleDefault)];
     
     [cell.textField setKeyboardType:self.keyboardType];
     [cell.textField setReturnKeyType:self.returnKeyType];

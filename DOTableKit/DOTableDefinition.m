@@ -321,7 +321,7 @@
 {
     DOTableElement *formElement = [self elementForIndexPath:indexPath];
     
-    CGFloat height = ((DOTableElementCell*)[formElement cellForTableView:self.tableView]).height;
+    CGFloat height = formElement.cellHeight;//((DOTableElementCell*)[formElement cellForTableView:self.tableView]).height;
     return height?:44.0f;
 }
 

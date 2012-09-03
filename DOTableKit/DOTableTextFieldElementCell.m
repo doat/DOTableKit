@@ -6,11 +6,11 @@
 //  Copyright (c) 2012 DoAT Media Ltd.. All rights reserved.
 //
 
-#import "DOTableTextEntryElementCell.h"
+#import "DOTableTextFieldElementCell.h"
 
 #define kPadding 10
 
-@implementation DOTableTextEntryElementCell
+@implementation DOTableTextFieldElementCell
 @synthesize textField = _textField;
 
 -(id)initWithElement:(DOTableElement *)element tableViewCellStyle:(UITableViewCellStyle)style
@@ -23,7 +23,7 @@
     return self;
 }
 
-- (id)initWithElement:(DOTableTextEntryElement*)element
+- (id)initWithElement:(DOTableTextFieldElement *)element
 {
     self = [super initWithElement:element];
     if (self)
@@ -36,10 +36,10 @@
 - (void)setupCell
 {
     _textField = [[UITextField alloc] initWithFrame:CGRectZero];
-    _textField.keyboardType = ((DOTableTextEntryElement*)_element).keyboardType;
+    _textField.keyboardType = ((DOTableTextFieldElement *)_element).keyboardType;
     _textField.clearButtonMode = UITextFieldViewModeWhileEditing;
-    _textField.placeholder = ((DOTableTextEntryElement*)_element).placeholder;
-    _textField.secureTextEntry = ((DOTableTextEntryElement*)_element).isSecure;
+    _textField.placeholder = ((DOTableTextFieldElement *)_element).placeholder;
+    _textField.secureTextEntry = ((DOTableTextFieldElement *)_element).isSecure;
     _textField.delegate = self;
     
     [[NSNotificationCenter defaultCenter] addObserver: self selector: @selector(textDidChange:)
@@ -90,9 +90,9 @@
 {
     [_element setValue:textField.text];
     
-    if([(DOTableTextEntryElement*)self.element returnBlock])
+    if([(DOTableTextFieldElement *)self.element returnBlock])
     {
-        ((DOTableTextEntryElement*)self.element).returnBlock(_element.value);
+        ((DOTableTextFieldElement *)self.element).returnBlock(_element.value);
     }
     
     [textField resignFirstResponder];

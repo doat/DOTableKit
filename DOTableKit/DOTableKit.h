@@ -11,8 +11,11 @@
 #import "DOTableElement.h"
 #import "DOTableElementCell.h"
 
-#import "DOTableTextEntryElement.h"
-#import "DOTableTextEntryElementCell.h"
+#import "DOTableTextFieldElement.h"
+#import "DOTableTextFieldElementCell.h"
+
+#import "DOTableTextViewElement.h"
+#import "DOTableTextViewElementCell.h"
 
 #import "DOTableBooleanElement.h"
 #import "DOTableSwitchElementCell.h"

@@ -1,5 +1,5 @@
 //
-//  DOTableTextEntryElement.h
+//  DOTableTextViewElement.h
 //  DOTableKit
 //
 //  Created by Hezi Cohen on 5/14/12.
@@ -8,7 +8,7 @@
 
 #import "DOTableElement.h"
 
-@interface DOTableTextEntryElement : DOTableElement
+@interface DOTableTextViewElement : DOTableElement
 {
     NSString *_placeholder;
     void (^returnBlock)(id value);
@@ -19,6 +19,7 @@
 @property (nonatomic, retain) NSString *placeholder;
 
 @property (nonatomic, assign) UIKeyboardType keyboardType;
+@property (nonatomic, assign) UIKeyboardAppearance keyboardAppearance;
 @property (nonatomic, assign) UIReturnKeyType returnKeyType;
 @property (nonatomic, assign, getter = isSecure) BOOL secure;
 
