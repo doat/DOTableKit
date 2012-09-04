@@ -17,6 +17,7 @@
     if (self) 
     {
         self.enabled = YES;
+        self.cellHeight = 60.0f;
     }
     return self;
 }

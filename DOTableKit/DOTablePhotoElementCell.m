@@ -38,9 +38,7 @@
     _thumbnailView.image = ((DOTablePhotoElement*)self.element).thumbnail;
     _thumbnailView.layer.anchorPoint = CGPointMake(1.0f, 0.0f);
     _thumbnailView.contentMode = UIViewContentModeScaleAspectFit;
-    
-    self.height = 60.0f;       
-    
+        
     [self.contentView insertSubview:_thumbnailView aboveSubview:self.textLabel];
 }
 
