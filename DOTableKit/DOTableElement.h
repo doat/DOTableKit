@@ -19,6 +19,7 @@
 }
 
 @property (nonatomic, weak) DOTableSection *section;
+@property (nonatomic, strong) id representedObject;
 
 @property (nonatomic, retain) NSString *title;
 @property (nonatomic, retain) NSString *key;

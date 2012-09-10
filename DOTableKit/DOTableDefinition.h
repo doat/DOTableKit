@@ -35,6 +35,7 @@
 - (void)addSection:(DOTableSection*)section;
 - (NSDictionary*) valuesDictionary;
 - (NSArray*)orderedValuesArray;
+- (NSArray*)elementsArray;
 
 - (DOTableSection*) sectionAtIndex:(NSUInteger)index;
 - (DOTableSection*) sectionForKey:(NSString*)aKey;

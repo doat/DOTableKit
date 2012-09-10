@@ -117,6 +117,21 @@
     return valuesArray;
 }
 
+- (NSArray*)elementsArray
+{
+    NSMutableArray *elementsArray = [NSMutableArray array];
+    for (DOTableSection *section in _sections)
+    {
+        for (DOTableElement *element in section.elements)
+        {
+            if(element.key)
+                [elementsArray addObject:element];
+        }
+    }
+    
+    return elementsArray;
+}
+
 - (void)tableElement:(DOTableElement *)element valueDidChange:(id)value
 {
     if([_delegate respondsToSelector: @selector(tableElement:valueDidChange:)])
