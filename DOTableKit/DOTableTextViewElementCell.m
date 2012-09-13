@@ -8,7 +8,7 @@
 
 #import "DOTableTextViewElementCell.h"
 
-#define kPadding 10
+#define kPadding 5
 
 @implementation DOTableTextViewElementCell
 @synthesize textView = _textView;
@@ -39,6 +39,7 @@
     _textView.keyboardType = ((DOTableTextFieldElement *)_element).keyboardType;
     _textView.secureTextEntry = ((DOTableTextFieldElement *)_element).isSecure;
     _textView.backgroundColor = [UIColor clearColor];
+    _textView.font = [UIFont systemFontOfSize:16.0f];
     _textView.delegate = self;
     
     [[NSNotificationCenter defaultCenter] addObserver: self selector: @selector(textDidChange:)
@@ -52,14 +53,14 @@
     [super layoutSubviews];
     if (IsEmpty(self.textLabel.text))
     {
-        _textView.frame = CGRectMake(kPadding,10,self.contentView.frame.size.width-10-kPadding, self.frame.size.height-20);
+        _textView.frame = CGRectMake(kPadding,2,self.contentView.frame.size.width-5-kPadding, self.frame.size.height-20);
     }
     else
     {
         CGFloat fontSize = self.textLabel.font.pointSize == 0? 17 : self.textLabel.font.pointSize;
         CGSize size = [_element.title sizeWithFont:[self.textLabel.font fontWithSize:fontSize] forWidth:CGFLOAT_MAX lineBreakMode:UILineBreakModeWordWrap] ;
         
-        _textView.frame = CGRectMake(size.width+5+kPadding,10,self.contentView.frame.size.width-size.width-10-kPadding, self.frame.size.height-20);
+        _textView.frame = CGRectMake(size.width+5+kPadding,2,self.contentView.frame.size.width-size.width-5-kPadding, self.frame.size.height-20);
         
     }
 }
