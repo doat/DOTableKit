@@ -175,6 +175,18 @@
     return nil;
 }
 
+- (NSArray*) elementsForKey:(NSString*)key
+{
+    NSMutableArray *elements = [NSMutableArray array];
+    for (DOTableSection *section in _sections)
+    {
+        NSArray *filterdArray = [section.elements filteredArrayUsingPredicate:[NSPredicate predicateWithFormat:@"key like %@", key]];
+        [elements addObjectsFromArray:filterdArray];
+    }
+    
+    return elements;
+}
+
 - (DOTableSection*) sectionForIndexPath:(NSIndexPath*)indexPath
 {
     id sectionAtIndex = [_sections objectAtIndex:indexPath.section];

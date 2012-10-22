@@ -40,6 +40,7 @@
 - (DOTableSection*) sectionAtIndex:(NSUInteger)index;
 - (DOTableSection*) sectionForKey:(NSString*)aKey;
 - (DOTableElement*) elementForKey:(NSString*)aKey;
+- (NSArray*) elementsForKey:(NSString*)key;
 - (DOTableElement*) elementForIndexPath:(NSIndexPath*)indexPath;
 
 - (void)tableElement:(DOTableElement *)element valueDidChange:(id)value;
