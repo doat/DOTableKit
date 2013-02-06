@@ -158,6 +158,10 @@
                     format:@"The element (%@) to be replaced has to be part of the section (%@)", currentElement.key, self];
     }
     
+    DOTableSection *tempSection = currentElement.section;
+    currentElement.section = newElement.section;
+    newElement.section = tempSection;
+    
     NSUInteger currentElementIndex = [_elements indexOfObject:currentElement];
     [_elements replaceObjectAtIndex:currentElementIndex withObject:newElement];
 }
